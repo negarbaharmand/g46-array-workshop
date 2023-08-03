@@ -38,7 +38,7 @@ public class NameRepository {
     }
     public static boolean add(final String fullName) {
         for (String name : names) {
-            if (name.equals(fullName)) {
+            if (name.equalsIgnoreCase(fullName)) {
                 return false; //return false if the array already includes the name
             }
         }
@@ -79,5 +79,21 @@ public class NameRepository {
         }
         return matches;
     }
-
+    public static boolean update(final String original, final String updatedName) {
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].equalsIgnoreCase(original)) {
+                if (names[i].equalsIgnoreCase(updatedName)) {
+                    return false; // An existing name matching the updatedName already exists
+                }
+                for (int j = 0; j < names.length; j++) {
+                    if (j != i && names[j].equalsIgnoreCase(updatedName)) {
+                        return false; // The updatedName already exists in the array
+                    }
+                }
+                names[i] = updatedName;
+                return true; // Name was found and updated with the new name
+            }
+        }
+        return false; // Name wasn't found
+    }
 }
