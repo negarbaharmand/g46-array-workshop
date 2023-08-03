@@ -58,8 +58,8 @@ public class NameRepository {
      public static String[] findByFirstName(final String firstName) {
       String[] matches = new String[0];
       for (String fullName : names) {
-          //fullName.split
-          if (fullName.startsWith(firstName + " ")) {
+          String[] parts = fullName.split(" ");
+          if (parts[0].equalsIgnoreCase(firstName)) {
               matches = Arrays.copyOf(matches, matches.length + 1);
               matches[matches.length - 1] = fullName;
           }
@@ -70,10 +70,12 @@ public class NameRepository {
     public static String[] findByLastName(final String lastName) {
         String[] matches = new String[0];
         for (String fullName : names) {
-            if (fullName.endsWith(" " + lastName)) {
+            String[] parts = fullName.split(" ");
+            if (parts[1].equalsIgnoreCase(lastName)) {
                 matches = Arrays.copyOf(matches, matches.length + 1);
                 matches[matches.length - 1] = fullName;
             }
+
         }
         return matches;
     }
